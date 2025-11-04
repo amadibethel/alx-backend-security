@@ -11,5 +11,20 @@ MIDDLEWARE = [
     
     # Custom IP Logging Middleware
     'ip_tracking.middleware.RequestLoggingMiddleware',
+
+INSTALLED_APPS = [
+    # ... other apps
+    'ip_tracking',
+    'ipgeolocation',
+]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-geolocation-cache",
+    }
+}
+
+
 ]
 
