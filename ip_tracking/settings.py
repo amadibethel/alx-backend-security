@@ -28,3 +28,12 @@ CACHES = {
 
 ]
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # or your preferred broker
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BEAT_SCHEDULE = {
+    'detect-anomalies-hourly': {
+        'task': 'ip_tracking.tasks.detect_anomalies',
+        'schedule': 3600.0,  # 1 hour
+    },
+}
+
