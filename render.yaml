@@ -1,4 +1,7 @@
 services:
+  # --------------------
+  # Django Web Service
+  # --------------------
   - type: web
     name: django-app
     env: docker
@@ -13,29 +16,38 @@ services:
         value: "*"
       - key: CELERY_BROKER_URL
         fromService:
+          type: redis
           name: redis
           property: connectionString
       - key: CELERY_RESULT_BACKEND
         fromService:
+          type: redis
           name: redis
           property: connectionString
 
+  # --------------------
+  # Celery Worker Service
+  # --------------------
   - type: worker
     name: celery-worker
     env: docker
     dockerfilePath: ./Dockerfile
-    startCommand: celery -A your_project_name worker --loglevel=info
+    command: celery -A your_project_name worker --loglevel=info
     envVars:
       - key: CELERY_BROKER_URL
         fromService:
+          type: redis
           name: redis
           property: connectionString
       - key: CELERY_RESULT_BACKEND
         fromService:
+          type: redis
           name: redis
           property: connectionString
 
+  # --------------------
+  # Redis Service
+  # --------------------
   - type: redis
     name: redis
     ipAllowList: []
-
