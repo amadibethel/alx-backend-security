@@ -32,8 +32,9 @@ services:
     name: celery-worker
     env: docker
     dockerfilePath: ./Dockerfile
-    startCommand: celery -A ip_tracking worker --loglevel=info
     envVars:
+      - key: WORKER_MODE
+        value: "true"
       - key: CELERY_BROKER_URL
         fromService:
           type: redis
