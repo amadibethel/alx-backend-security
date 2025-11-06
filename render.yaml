@@ -32,7 +32,7 @@ services:
     name: celery-worker
     env: docker
     dockerfilePath: ./Dockerfile
-    command: celery -A your_project_name worker --loglevel=info
+    command: celery -A ip_tracking worker --loglevel=info
     envVars:
       - key: CELERY_BROKER_URL
         fromService:
