@@ -9,7 +9,7 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: DEBUG
-        value: False
+        value: "False"
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
@@ -32,7 +32,7 @@ services:
     name: celery-worker
     env: docker
     dockerfilePath: ./Dockerfile
-    command: celery -A ip_tracking worker --loglevel=info
+    startCommand: celery -A ip_tracking worker --loglevel=info
     envVars:
       - key: CELERY_BROKER_URL
         fromService:
@@ -51,3 +51,4 @@ services:
   - type: redis
     name: redis
     ipAllowList: []
+
